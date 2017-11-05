@@ -1,4 +1,4 @@
-# Home-Assistant Sinopé Custom Components
+# Home Assistant Sinopé Custom Components
 
 Here are my custom components for Sinopé thermostats in Home Assistant. (http://www.home-assistant.io)
 
