@@ -12,10 +12,12 @@ import json
 import re
 
 import homeassistant.helpers.config_validation as cv
-from homeassistant.components.climate import (ClimateDevice, PLATFORM_SCHEMA, STATE_HEAT, STATE_IDLE, ATTR_TEMPERATURE, ATTR_AWAY_MODE)
+from homeassistant.components.climate import (ClimateDevice, PLATFORM_SCHEMA, STATE_HEAT, STATE_IDLE, ATTR_TEMPERATURE, ATTR_AWAY_MODE, SUPPORT_TARGET_TEMPERATURE)
 from homeassistant.const import (CONF_USERNAME, CONF_PASSWORD, CONF_NAME, TEMP_CELSIUS)
 
 _LOGGER = logging.getLogger(__name__)
+
+SUPPORT_FLAGS = (SUPPORT_TARGET_TEMPERATURE)
 
 DEFAULT_NAME = 'Sinope'
 
@@ -88,6 +90,11 @@ class SinopeThermostat(ClimateDevice):
         self._cur_temp =  float(self.sinope_data.data[self.device_id]["data"]["temperature"])
         self._mode = float(self.sinope_data.data[self.device_id]["data"]["mode"])
         self._state = float(self.sinope_data.data[self.device_id]["data"]["heatLevel"])
+
+    @property
+    def supported_features(self):
+        """Return the list of supported features."""
+        return SUPPORT_FLAGS
 
     @property
     def name(self):
